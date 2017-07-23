@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "lambda-execution-role",
+    "name": "helloevents",
+    "region": "us-east-1"
+  }
+}

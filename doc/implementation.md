@@ -15,10 +15,10 @@ AWS API Gateway seems to be the proper solution to receive webhooks on AWS. So I
 - Define an endpoint for Trello webhooks:
   - create a "/trello" resource,
   - create an _ANY_ action using a _Mock_ integration type.
-- Create a "production" stage:
+- Create a "prod" stage:
   - enable CloudWatch Logs, at log level _INFO_, logging full requests/responses data.
-- Deploy the API to the "production" stage.
-  - Display the "production" stage and the invoke URL. Copy the invoke URL to setup the Trello webhook (next step).
+- Deploy the API to the "prod" stage.
+  - Display the "prod" stage and the invoke URL. Copy the invoke URL to setup the Trello webhook (next step).
 
 ### Configuring a Trello webhook to the AWS endpoint
 
@@ -36,4 +36,16 @@ AWS API Gateway seems to be the proper solution to receive webhooks on AWS. So I
   - select _API Gateway_ as the integration,
   - select the created API endpoint,
   - select _Open_ for security (this is technical debt, we will have to implement the Trello authenticity signature verification).
+
+### Setup a Lambda development environment using ClaudiaJS
+
 - Going on with [ClaudiaJS](https://claudiajs.com) to build Lambda functions to ease deployment and handle local testing.
+- Installing ClaudiaJS globally.
+- Setting AWS permissions for ClaudiaJS:
+  - create an IAM user account for ClaudiaJS,
+  - add the following policies: _AWSLambdaFullAccess_, _AmazonAPIGatewayAdministrator_,
+  - (if you do not like the idea of giving full IAM rights either) create a Lambda execution role manually (named `lambda-execution-role`), so you can provide it to the `claudia create` command,
+  - add the `lambda-execution-role` to your ClaudiaJS IAM user:
+    - create an user-managed policy allowing _iam.GetRole_ on your Lambda execution role,
+    - add this policy to your ClaudiaJS user.
+- Writing a first Lambda JS file to `index.js` and testing its deployment with ClaudiaJS: `node_modules/.bin/claudia create --region us-east-1 --handler index.helloWorld --profile=claudia --role=lambda-execution-role`.
