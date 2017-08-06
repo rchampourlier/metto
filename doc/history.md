@@ -48,4 +48,11 @@ AWS API Gateway seems to be the proper solution to receive webhooks on AWS. So I
   - add the `lambda-execution-role` to your ClaudiaJS IAM user:
     - create an user-managed policy allowing _iam.GetRole_ on your Lambda execution role,
     - add this policy to your ClaudiaJS user.
+
+### Deploying helloevents test Lambda
+
 - Writing a first Lambda JS file to `index.js` and testing its deployment with ClaudiaJS: `node_modules/.bin/claudia create --region us-east-1 --handler index.helloWorld --profile=claudia --role=lambda-execution-role`.
+- The result is a working AWS endpoint, receiving Trello webhooks and triggering the `helloevents` Lambda.
+- /!\ An issue remains: `console.log(event)` results could not be found in CloudWatch.
+
+## Making a Lambda function store the event in S3
