@@ -1,0 +1,22 @@
+{
+  "name": "store_event_to_s3",
+  "version": "0.1.0",
+  "description": "Lambda storing the received event to S3",
+  "main": "index.js",
+  "dependencies": {
+    "claudia": "^2.14.2"
+  },
+  "devDependencies": {
+    "claudia": "^2.14.2",
+    "ntl": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "claudia create --version prod --region us-east-1 --handler index.handler --profile=claudia --role=lambda-execution-role",
+    "test": "claudia test-lambda --profile=claudia --role=lambda-execution-role --event=event.json",
+    "update": "claudia update --profile=claudia --role=lambda-execution-role",
+    "start": "ntl"
+  },
+  "author": "Romain Champourlier <public@rchampourlier.com>",
+  "license": "MIT"
+}
